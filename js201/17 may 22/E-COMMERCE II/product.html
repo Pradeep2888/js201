@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product.html</title>
+</head>
+<body>
+    <h1 id="count">Count</h1>
+    <div id="all_products"></div>
+</body>
+</html>
+<script>
+    var productArr=JSON.parse(localStorage.getItem("Products"))
+displayData(productArr)
+
+
+function displayData(productArr){
+    // console.log(productArr)
+
+    productArr.forEach(function(el,Index){
+        
+        let container=document.getElementById("all_products")
+
+        let card=document.createElement("div")
+
+        let image=document.createElement("img")
+        image.src=el.Img_url
+        let type=document.createElement("h3")
+        type.innerText=el.Gender
+        let  desc=document.createElement("h3")
+        desc.innerText=el.Product_name
+        let price=document.createElement("h3")
+        price.innerText=el.Price
+        let sold=document.createElement("h3")
+        if(sold.innerText=el.Sold == "False"){
+            sold.innerText="true"
+        }
+        else if(sold.innerText=el.Sold == "True"){
+            sold.innerText="False"
+        }
+        let remove=document.createElement("button")
+        remove.innerText="Remove"
+        remove.addEventListener("click",function(){
+              deleteItem(Index)       
+        })
+
+        card.append(image,type,desc,price,sold,remove)
+
+        container.append(card)
+        
+    })
+}
+
+function deleteItem(index){
+console.log(index)
+productArr.splice(index,1)
+localStorage.setItem("Products",JSON.stringify(productArr))
+window.location.reload()
+}
+</script>
